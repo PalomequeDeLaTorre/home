@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collectionData, deleteDoc, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collectionData, deleteDoc, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { first } from 'rxjs';
 import { collection } from 'firebase/firestore';
 import { Producto } from '../models/producto.models';
@@ -23,24 +23,21 @@ export class ProductoService {
     async agregarProductos(producto: Producto) {
       const productosCollection = collection(this.db, 'productos');
       const productosData = {
-        id: producto.id, // Usamos el ID proporcionado manualmente
+        id: producto.id, 
         descripcion: producto.descripcion,
         precio: producto.precio
       };
     
-      // Usamos setDoc en lugar de addDoc para definir manualmente el ID
       await setDoc(doc(productosCollection, producto.id), productosData);
     }
   
     //Método para modificar un documento.
     async modificarProducto(producto: Producto) {
-      // Si el ID ha cambiado, eliminar el documento antiguo y crear uno nuevo
       if (producto.id !== producto.idOriginal) {
-        // Eliminar el documento antiguo
+
         const documentRefViejo = doc(this.db, 'productos', producto.idOriginal);
         await deleteDoc(documentRefViejo);
     
-        // Crear un nuevo documento con el nuevo ID
         const productosCollection = collection(this.db, 'productos');
         await setDoc(doc(productosCollection, producto.id), {
           id: producto.id,
@@ -48,7 +45,7 @@ export class ProductoService {
           precio: producto.precio
         });
       } else {
-        // Si el ID no ha cambiado, actualizar el documento normalmente
+   
         const documentRef = doc(this.db, 'productos', producto.id);
         await updateDoc(documentRef, {
           descripcion: producto.descripcion,

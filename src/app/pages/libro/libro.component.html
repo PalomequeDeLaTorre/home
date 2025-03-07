@@ -39,13 +39,14 @@
             <tr>
                 <td>
                     <button type="button" class="btn btn-primary" 
-                    (click)="mostrarErrores = true; insertarLibro()">Insertar</button>
+                    (click)="mostrarErrores = true; insertarLibro()"
+                    [disabled]="enModoEdicion">Insertar</button>
                 </td>
 
                 <td>
                     <button type="button" class="btn btn-warning" 
                     (click)="this.updateLibro()" 
-                    [disabled]="!isFormValid()">Actualizar</button>
+                    [disabled]="!enModoEdicion || !isFormValid()">Actualizar</button>
                 </td>
 
                 <td>

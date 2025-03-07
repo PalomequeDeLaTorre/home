@@ -17,7 +17,7 @@ export class LibroComponent {
   libro = new Libro();
   mostrarErrores: boolean = false;
   actualizado: boolean = false;
-
+  enModoEdicion: boolean = false;
 
   //Constructor
   constructor(private libroService:LibroService){
@@ -31,23 +31,29 @@ export class LibroComponent {
 
   //Método para insertar un libro desde el formulario 
   insertarLibro(){
+    this.mostrarErrores = true; 
     this.libroService.agregarLibro(this.libro);
     this.getLibros();
     this.libro = new Libro();
     this.mostrarErrores = false; 
+    alert('Libro agregado correctamente.'); 
   }
 
   //Método para seleccionar un libro de la tabla
   selectLibro(libroSeleccionado:Libro){
     this.libro = libroSeleccionado;
+    this.enModoEdicion = true; 
   }
 
   //Método para modificar un libro
   updateLibro() {
+    this.mostrarErrores = true;
     this.libroService.modificarLibro(this.libro);
     this.libros =  new Libro();
     this.getLibros();
-    this.actualizado = true; 
+    this.actualizado = true;
+    this.mostrarErrores = false;
+    alert('Libro modificado correctamente.');
   }
 
   //Método para eliminar un libro
