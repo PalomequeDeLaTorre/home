@@ -1,0 +1,92 @@
+<div class="container" style="background-color: black;" >
+    <h1 style="padding-top: 2%; font-size: 2.5rem; color: #ffffff; margin-bottom: 20px; text-align: center;">Catálogo de Libros</h1>
+    <h4 style="font-size: 1.5rem; color: #ffffff; margin-bottom: 20px; text-align: center;">Alta de libros</h4>
+    <div class="col-sm-4">
+        <p>
+            <label>Título:</label>
+            <input type="text" class="form-control" [(ngModel)]="libro.titulo" />
+            @if(mostrarErrores && libro && !libro.titulo){
+                <span style="color: red;">El título es obligatorio</span>
+            }
+        </p>
+
+        <p>
+            <label>Autor:</label>
+            <input type="text" class="form-control" [(ngModel)]="libro.autor" />
+            @if(mostrarErrores && libro && !libro.autor){
+                <span style="color: red;">El autor es obligatorio</span>
+            }
+        </p>
+
+        <p>
+            <label>Editorial:</label>
+            <input type="text" class="form-control" [(ngModel)]="libro.editorial"/>
+            @if(mostrarErrores && libro && !libro.editorial){
+                <span style="color: red;">La editorial es obligatoria</span>
+            }
+        </p>
+
+        <p>
+            <label>Año de Publicación:</label>
+            <input type="text" class="form-control" [(ngModel)]="libro.anyoPublicacion" />
+            @if(mostrarErrores && libro && !libro.anyoPublicacion){
+                <span style="color: red;">Ingrese un año válido (4 dígitos)</span>
+            }
+            
+        </p>
+
+        <table>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary" 
+                    (click)="mostrarErrores = true; insertarLibro()">Insertar</button>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-warning" 
+                    (click)="this.updateLibro()" 
+                    [disabled]="!isFormValid()">Actualizar</button>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-danger"
+                    (click)="this.deleteLibro()">Eliminar</button>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-secondary"
+                    (click)="clearSelection()">Limpiar</button>
+                </td>
+                
+            </tr>
+        </table>
+    </div>
+
+    <hr />
+    <p></p>
+    <h4 style="font-size: 1.5rem; color: #ffffff; margin-bottom: 20px; text-align: center;">Listado de Libros</h4>
+    <table class="table-container">
+        <thead>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+            <th>Año de Publicación</th>
+            <th>Seleccionar</th>
+        </thead>
+        <tbody>
+            @for(libro of libros; track libro.id){
+                <tr>
+                    <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.editorial }}</td>
+                    <td>{{ libro.anyoPublicacion }}</td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                        (click)="selectLibro(libro)">Seleccionar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

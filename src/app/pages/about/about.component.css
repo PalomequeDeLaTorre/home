@@ -1,0 +1,79 @@
+.about-developer {
+    background-color: #000;
+    color: #fff;
+    padding: 80px 0;
+  }
+  
+  .developer-image img {
+    max-width: 420px;
+    height: auto; 
+    border-radius: 2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .developer-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+  }
+  
+  .developer-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .developer-info p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #ddd;
+  }
+  
+  .developer-info .btn-primary {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .developer-info .btn-primary:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .developer-image {
+      margin-bottom: 30px;
+    }
+
+    .developer-image img {
+        max-width: 100px; 
+    }
+  
+    .developer-info h2 {
+      font-size: 2rem;
+    }
+  
+    .developer-info p {
+      font-size: 1rem;
+    }
+  }
+
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #fff; 
+    font-size: 20px; 
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #1da1f2; 
+}

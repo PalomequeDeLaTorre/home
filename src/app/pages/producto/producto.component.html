@@ -1,0 +1,66 @@
+<div class="container">
+  <h1>Catálogo de Productos</h1>
+  <h4>Alta de productos</h4>
+  @if (productos.length > 0) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Seleccionar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of productos; track producto.id) {
+          <tr>
+            <td data-label="ID">{{producto.id}}</td>
+            <td data-label="Descripción">{{producto.descripcion}}</td>
+            <td data-label="Precio">{{producto.precio}}</td>
+            <td data-label="Seleccionar">
+              <button type="button" class="btn btn-warning" 
+              (click)="selectProducto(producto)">Seleccionar</button>
+            </td>
+            <td data-label="Eliminar">
+              <button type="button" class="btn btn-danger" 
+              (click)="deleteProducto(producto)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <h3>NO HAY PRODUCTOS</h3>
+  }
+  <div class="table-container">
+    <h4>Agregar productos</h4>
+    <p>
+      ID: <input type="text" [(ngModel)]="producto.id"/>
+      @if(mostrarErrores && producto && !producto.id){
+        <span>El ID es obligatorio</span>
+      }
+    </p>
+    <p>
+      Descripción: <input type="text" [(ngModel)]="producto.descripcion"/>
+      @if(mostrarErrores && producto && !producto.descripcion){
+        <span>La descripción es obligatoria</span>
+      }
+    </p>
+    <p>
+      Precio: <input type="number" [(ngModel)]="producto.precio"/>
+      @if(mostrarErrores && producto && !producto.precio){
+        <span>El precio es obligatorio</span>
+      }
+    </p>
+    <p>
+      <button type="button" class="btn btn-primary" 
+      (click)="insertarProducto()">Agregar</button>
+    </p>
+    <p>
+      <button type="button" class="btn btn-success" 
+      (click)="this.updateProducto()"
+      [disabled]="!isFormValid()">Modificar</button>
+    </p>
+  </div>
+</div>

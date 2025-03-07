@@ -1,0 +1,178 @@
+.container {
+    max-width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px; 
+    padding: 10px; 
+    background-color: #000000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap; 
+    color: rgb(255, 255, 255);
+}
+
+h1, h4 {
+    background-color: #000000;
+  }
+
+
+
+
+.product-list {
+    flex: 1 1 35%;
+    background: rgb(0, 0, 0);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-list:hover {
+    transform: translateY(-5px);
+}
+
+
+.form-container {
+    flex: 1 1 15%; 
+    background: rgba(0, 0, 0, 0.329);
+    padding: 10px 20px; 
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.233);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+    height: auto;
+    
+}
+
+
+.form-container:hover {
+    transform: translateY(-5px);
+}
+
+
+.form-container h2, .product-list h2 {
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+
+.form-container input {
+    width: 100%;
+    padding: 6px; /* Reduje el padding */
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 12px; /* Reduje el tamaño de fuente */
+    transition: all 0.3s;
+}
+
+.form-container input:focus {
+    border-color: #a50000fa;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    outline: none;
+}
+
+/* Botones */
+.form-container button {
+    width: 100%;
+    padding: 8px; /* Reduje el padding */
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    font-size: 12px; /* Reduje el tamaño de fuente */
+    font-weight: bold;
+}
+
+.form-container button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    transition: left 0.3s;
+}
+
+.form-container button:hover::after {
+    left: 100%;
+}
+
+/* Estilos de botones primarios */
+.form-container .btn-primary {
+    background: linear-gradient(135deg, #00448d, #0056b3);
+    color: white;
+}
+
+.form-container .btn-primary:hover {
+    background: linear-gradient(135deg, #003d7e, #003c7e);
+}
+
+/* Tabla */
+.product-list table {
+    width: 95%; /* Reducido un poco el ancho */
+    margin: 10px auto;
+    border-collapse: collapse;
+    animation: fadeIn 1s ease-in-out;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-list th, .product-list td {
+    padding: 6px; /* Reduje el padding */
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 10px; /* Reduje el tamaño de fuente */
+}
+
+.product-list th {
+    background: #000000;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Botones de la tabla */
+.product-list button {
+    padding: 3px 6px; /* Reduje el padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-size: 9px; /* Reduje el tamaño de fuente */
+    font-weight: bold;
+}
+
+/* Media Queries para diseño responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    .product-list, .form-container {
+        flex: 1 1 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    .product-list, .form-container {
+        flex: 1 1 100%;
+    }
+    .form-container h2, .product-list h2 {
+        font-size: 14px;
+    }
+}
+
+
