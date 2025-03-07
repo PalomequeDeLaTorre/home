@@ -17,6 +17,7 @@ export class ElectrodomesticoComponent {
   electrodomestico = new Electrodomestico();
   mostrarErrores: boolean = false;
   actualizado: boolean = false;
+  enModoEdicion: boolean = false;
     
   // Constructor
   constructor(private electrodomesticoService: ElectrodomesticoService) {
@@ -25,30 +26,71 @@ export class ElectrodomesticoComponent {
 
   // Método que obtiene los electrodomésticos del servicio
   async getElectrodomesticos(): Promise<void> {
-    this.electrodomesticos = await firstValueFrom(this.electrodomesticoService.getElectrodomesticos());
+    try {
+      this.electrodomesticos = await firstValueFrom(this.electrodomesticoService.getElectrodomesticos());
+    } catch (error) {
+      console.error("Error al obtener electrodomésticos:", error);
+      this.electrodomesticos = [];
+    }
   }
 
   // Método para agregar un electrodoméstico
-  insertarElectrodomestico() {
-    this.electrodomesticoService.agregarElectrodomesticos(this.electrodomestico);
-    this.getElectrodomesticos();
-    this.electrodomestico = new Electrodomestico();
-    this.mostrarErrores = false;
+  async insertarElectrodomestico() {
+    this.mostrarErrores = true; 
+
+    if (this.electrodomestico.id === "0") {
+      alert('El ID no puede ser 0. Por favor, ingrese un número mayor a 0.'); 
+      return;
+    }
+
+    const idExistente = this.electrodomesticos.some((e: Electrodomestico) => e.id === this.electrodomestico.id);
+
+    if (idExistente) {
+      alert('El ID ya existe. Por favor, ingrese un ID único.');
+      return;
+    }
+
+    try {
+      await this.electrodomesticoService.agregarElectrodomesticos(this.electrodomestico);
+      await this.getElectrodomesticos();
+      this.electrodomestico = new Electrodomestico();
+      this.mostrarErrores = false;
+      alert('Electrodoméstico agregado correctamente.'); 
+    } catch (error) {
+      alert('Error al agregar el electrodoméstico. Intente nuevamente.'); 
+    }
   }
 
   // Método para seleccionar un electrodoméstico
   selectElectrodomestico(electrodomesticoSeleccionado: Electrodomestico) {
-    this.electrodomestico = electrodomesticoSeleccionado;
+    this.electrodomestico = { ...electrodomesticoSeleccionado, idOriginal: electrodomesticoSeleccionado.id };
+    this.enModoEdicion = true; 
   }
 
   // Método para modificar un electrodoméstico
-  updateElectrodomestico() {
-    this.electrodomesticoService.modificarElectrodomestico(this.electrodomestico);
-    this.electrodomesticos = new Electrodomestico();
-    this.getElectrodomesticos();
-    this.actualizado = true;
+  async updateElectrodomestico() {
+    this.mostrarErrores = true;
+
+    const idExistente = this.electrodomesticos.some((p: Electrodomestico) => p.id === this.electrodomestico.id && p.id !== this.electrodomestico.idOriginal );
+
+    if (idExistente) {
+      alert('El ID ya existe en otro producto. Por favor, ingrese un ID único.');
+      return;
+    }
+
+    try {
+      await this.electrodomesticoService.modificarElectrodomestico(this.electrodomestico);
+      await this.getElectrodomesticos();
+      this.electrodomestico = new Electrodomestico();
+      this.actualizado = true;
+      this.mostrarErrores = false;
+      alert('Electrodomestico modificado correctamente.');
+    } catch (error) {
+      alert('Error al modificar el electrodomestico. Intente nuevamente.');
+    }
   }
 
+   
   // Método para eliminar un electrodoméstico
   deleteElectrodomestico(electrodomestico: Electrodomestico) {
     this.electrodomesticoService.eliminarElectrodomestico(electrodomestico);

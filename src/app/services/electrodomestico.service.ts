@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { addDoc, collectionData, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import { collectionData, deleteDoc, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { first } from 'rxjs';
 import { collection } from 'firebase/firestore';
 import { Electrodomestico } from '../models/electrodomestico.models';
@@ -20,7 +20,7 @@ export class ElectrodomesticoService {
     }
   
     //Método para agregar un documento a la colección.
-    agregarElectrodomesticos(electrodomestico:Electrodomestico){
+    async agregarElectrodomesticos(electrodomestico:Electrodomestico){
       const electrodomesticosCollection = collection(this.db, 'electrodomesticos');
       const electrodomesticosData = {
         id: electrodomestico.id,
@@ -29,24 +29,42 @@ export class ElectrodomesticoService {
         precio: electrodomestico.precio,
         cantidad: electrodomestico.cantidad
       };
-      addDoc(electrodomesticosCollection, electrodomesticosData);
+
+      await setDoc(doc(electrodomesticosCollection, electrodomestico.id), electrodomesticosData);
     }
   
     //Método para modificar un documento.
-    modificarElectrodomestico(electrodomestico:Electrodomestico){
-      const documentRef = doc(this.db, 'electrodomesticos', electrodomestico.id);
-      updateDoc(documentRef, {
-        id: electrodomestico.id,
-        nombre: electrodomestico.nombre,
-        marca: electrodomestico.marca,
-        precio: electrodomestico.precio,
-        cantidad: electrodomestico.cantidad
+    async modificarElectrodomestico(electrodomestico:Electrodomestico){
+      if (electrodomestico.id !== electrodomestico.idOriginal){
+
+        const documentRefViejo = doc(this.db, 'electrodomesticos', electrodomestico.idOriginal);
+        await deleteDoc(documentRefViejo);
+
+        const electrodomesticosCollection = collection(this.db, 'electrodomesticos');
+        await setDoc(doc(electrodomesticosCollection, electrodomestico.id), {
+          id: electrodomestico.id,
+          nombre: electrodomestico.nombre,
+          marca: electrodomestico.marca,
+          precio: electrodomestico.precio,
+          cantidad: electrodomestico.cantidad
       });
+
+      } else {
+
+        const documentRef = doc(this.db, 'electrodomesticos', electrodomestico.id);
+        await updateDoc(documentRef, {
+          id: electrodomestico.id,
+          nombre: electrodomestico.nombre,
+          marca: electrodomestico.marca,
+          precio: electrodomestico.precio,
+          cantidad: electrodomestico.cantidad
+      });
+      }
     }
   
     //Método para borrar un documento.
-    eliminarElectrodomestico(electrodomestico:Electrodomestico){
+    async eliminarElectrodomestico(electrodomestico:Electrodomestico){
       const documentRef = doc(this.db,'electrodomesticos', electrodomestico.id);
-      deleteDoc(documentRef);
+      await deleteDoc(documentRef);
     }
   }

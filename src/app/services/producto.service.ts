@@ -44,6 +44,7 @@ export class ProductoService {
           descripcion: producto.descripcion,
           precio: producto.precio
         });
+        
       } else {
    
         const documentRef = doc(this.db, 'productos', producto.id);
