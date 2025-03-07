@@ -1,35 +1,35 @@
-<h1 style=" padding-top: 3%; font-size: 2.5rem; color: #ffffff; margin-bottom: 20px; text-align: center;">Ejercicio 1 - Electrodomésticos</h1>
-<h4 style=" font-size: 1.5rem; color: #ffffff; margin-bottom: 20px; text-align: center;">Electrodomésticos</h4>
+<h1 style=" padding-top: 4%; font-size: 2.5rem; color: #000000; margin-bottom: 20px; text-align: center;">Ejercicio 1</h1>
+<h4 style=" font-size: 1.5rem; color: #000000; margin-bottom: 20px; text-align: center;">Electrodomésticos</h4>
 <div class="container">
   <div class="form-container">
-    <h2 style="color: rgb(255, 255, 255); font-weight: bold;"> Formulario de 'Añadir/Editar' Electrodomésticos</h2>
+    <h2 style="color: rgb(0, 0, 0); font-weight: bold;"> Formulario de 'Añadir/Editar' Electrodomésticos</h2>
     <div>
       <p>
-        <strong>Id:</strong> <input type="text" style="color: rgb(255, 255, 255); font-weight: bold;" [(ngModel)]="electrodomestico.id" />
+        <strong>Id:</strong> <input type="text" style="color: rgb(0, 0, 0); font-weight: bold;" [(ngModel)]="electrodomestico.id" />
         @if(mostrarErrores && electrodomestico && !electrodomestico.id){
           <span style="color: red;">Es necesario que el Id sea un valor mayor a cero</span>
         }
       </p>
       <p>
-        <strong>Nombre:</strong> <input type="text" style="color: rgb(253, 253, 253); font-weight: bold;" [(ngModel)]="electrodomestico.nombre" />
+        <strong>Nombre:</strong> <input type="text" style="color: rgb(0, 0, 0); font-weight: bold;" [(ngModel)]="electrodomestico.nombre" />
         @if(mostrarErrores && electrodomestico && !electrodomestico.nombre){
           <span style="color: red;">Este campo es obligatorio</span>
         }
       </p>
       <p>
-        <strong>Marca:</strong> <input type="text" style="color: rgb(255, 255, 255); font-weight: bold;" [(ngModel)]="electrodomestico.marca" />
+        <strong>Marca:</strong> <input type="text" style="color: rgb(0, 0, 0); font-weight: bold;" [(ngModel)]="electrodomestico.marca" />
         @if(mostrarErrores && electrodomestico && !electrodomestico.marca){
           <span style="color: red;">Este campo es obligatorio</span>
         }
       </p>
       <p>
-        <strong>Precio:</strong><input type="number" style="color: rgb(255, 255, 255); font-weight: bold;" [(ngModel)]="electrodomestico.precio" />
+        <strong>Precio:</strong><input type="number" style="color: rgb(0, 0, 0); font-weight: bold;" [(ngModel)]="electrodomestico.precio" />
         @if(mostrarErrores && electrodomestico && !electrodomestico.precio){
           <span style="color: red;">Este campo es obligatorio</span>
         }
       </p>
       <p>
-        <strong>Cantidad:</strong><input type="number" style="color: rgb(255, 255, 255); font-weight: bold;" [(ngModel)]="electrodomestico.cantidad" />
+        <strong>Cantidad:</strong><input type="number" style="color: rgb(0, 0, 0); font-weight: bold;" [(ngModel)]="electrodomestico.cantidad" />
         @if(mostrarErrores && electrodomestico && !electrodomestico.cantidad){
           <span style="color: red;">Este campo es obligatorio</span>
         }

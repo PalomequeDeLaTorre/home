@@ -34,23 +34,23 @@
     <h3>NO HAY PRODUCTOS</h3>
   }
   <div class="table-container">
-    <h4>Agregar productos</h4>
+    <h4 style="padding-top: 3%; color: white;">Agregar productos</h4>
     <p>
       ID: <input type="text" [(ngModel)]="producto.id"/>
       @if(mostrarErrores && producto && !producto.id){
-        <span>El ID es obligatorio</span>
+        <span style="color: red;">El ID es obligatorio</span>
       }
     </p>
     <p>
       Descripción: <input type="text" [(ngModel)]="producto.descripcion"/>
       @if(mostrarErrores && producto && !producto.descripcion){
-        <span>La descripción es obligatoria</span>
+        <span style="color: red;">La descripción es obligatoria</span>
       }
     </p>
     <p>
       Precio: <input type="number" [(ngModel)]="producto.precio"/>
       @if(mostrarErrores && producto && !producto.precio){
-        <span>El precio es obligatorio</span>
+        <span style="color: red;">El precio es obligatorio</span>
       }
     </p>
     <p>
