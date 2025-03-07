@@ -31,7 +31,11 @@ export class LibroComponent {
 
   //Método para insertar un libro desde el formulario 
   insertarLibro(){
-    this.mostrarErrores = true; 
+    this.mostrarErrores = true;
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
     this.libroService.agregarLibro(this.libro);
     this.getLibros();
     this.libro = new Libro();
@@ -48,6 +52,10 @@ export class LibroComponent {
   //Método para modificar un libro
   updateLibro() {
     this.mostrarErrores = true;
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
     this.libroService.modificarLibro(this.libro);
     this.libros =  new Libro();
     this.getLibros();

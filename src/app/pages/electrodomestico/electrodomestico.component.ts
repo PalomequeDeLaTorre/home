@@ -43,6 +43,11 @@ export class ElectrodomesticoComponent {
       return;
     }
 
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
     const idExistente = this.electrodomesticos.some((e: Electrodomestico) => e.id === this.electrodomestico.id);
 
     if (idExistente) {
@@ -70,6 +75,11 @@ export class ElectrodomesticoComponent {
   // Método para modificar un electrodoméstico
   async updateElectrodomestico() {
     this.mostrarErrores = true;
+
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
 
     const idExistente = this.electrodomesticos.some((p: Electrodomestico) => p.id === this.electrodomestico.id && p.id !== this.electrodomestico.idOriginal );
 
