@@ -31,7 +31,7 @@
       </tbody>
     </table>
   } @else {
-    <h3>NO HAY PRODUCTOS</h3>
+    <h3 style="color: red;">NO HAY PRODUCTOS EN LA BD</h3>
   }
   <div class="table-container">
     <h4 style="padding-top: 3%; color: white;">Agregar productos</h4>
@@ -55,12 +55,13 @@
     </p>
     <p>
       <button type="button" class="btn btn-primary" 
-      (click)="insertarProducto()">Agregar</button>
+      (click)="insertarProducto()"
+      [disabled]="enModoEdicion">Agregar</button>
     </p>
     <p>
       <button type="button" class="btn btn-success" 
       (click)="this.updateProducto()"
-      [disabled]="!isFormValid()">Modificar</button>
+      [disabled]="!enModoEdicion || !isFormValid()">Modificar</button>
     </p>
   </div>
 </div>

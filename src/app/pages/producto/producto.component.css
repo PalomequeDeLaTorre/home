@@ -55,9 +55,6 @@ h4 {
     
 }
 
-
-
-
 .table-container {
     max-width: 800px; 
     width: 100%;
@@ -78,10 +75,6 @@ h4 {
     font-weight: bold;
  
 }
-
-
-
-
 
 .btn-primary, .btn-success {
     width: 100%;
@@ -129,7 +122,6 @@ h4 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-
 input[type="text"], input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -146,13 +138,11 @@ input[type="text"]:focus, input[type="number"]:focus {
     outline: none;
 }
 
-
 span {
     color: #e74c3c;
     font-size: 12px;
     margin-left: 10px;
 }
-
 
 @media (max-width: 768px) {
     .table, .table thead, .table tbody, .table th, .table td, .table tr {

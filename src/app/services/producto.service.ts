@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collectionData, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collectionData, deleteDoc, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { first } from 'rxjs';
 import { collection } from 'firebase/firestore';
 import { Producto } from '../models/producto.models';
@@ -20,30 +20,47 @@ export class ProductoService {
     }
   
     //Método para agregar un documento a la colección.
-    agregarProductos(producto:Producto){
+    async agregarProductos(producto: Producto) {
       const productosCollection = collection(this.db, 'productos');
       const productosData = {
-        id: producto.id,
+        id: producto.id, // Usamos el ID proporcionado manualmente
         descripcion: producto.descripcion,
-        precio:producto.precio
+        precio: producto.precio
       };
-      addDoc(productosCollection, productosData);
+    
+      // Usamos setDoc en lugar de addDoc para definir manualmente el ID
+      await setDoc(doc(productosCollection, producto.id), productosData);
     }
   
     //Método para modificar un documento.
-    modificarProducto(producto:Producto){
-      const documentRef = doc(this.db, 'productos', producto.id);
-      updateDoc(documentRef, {
-        id: producto.id,
-        descripcion: producto.descripcion,
-        precio:producto.precio
-      });
+    async modificarProducto(producto: Producto) {
+      // Si el ID ha cambiado, eliminar el documento antiguo y crear uno nuevo
+      if (producto.id !== producto.idOriginal) {
+        // Eliminar el documento antiguo
+        const documentRefViejo = doc(this.db, 'productos', producto.idOriginal);
+        await deleteDoc(documentRefViejo);
+    
+        // Crear un nuevo documento con el nuevo ID
+        const productosCollection = collection(this.db, 'productos');
+        await setDoc(doc(productosCollection, producto.id), {
+          id: producto.id,
+          descripcion: producto.descripcion,
+          precio: producto.precio
+        });
+      } else {
+        // Si el ID no ha cambiado, actualizar el documento normalmente
+        const documentRef = doc(this.db, 'productos', producto.id);
+        await updateDoc(documentRef, {
+          descripcion: producto.descripcion,
+          precio: producto.precio
+        });
+      }
     }
   
     //Método para borrar un documento.
-    eliminarProducto(producto:Producto){
-      const documentRef = doc(this.db,'productos', producto.id);
-      deleteDoc(documentRef);
+    async eliminarProducto(producto: Producto) {
+      const documentRef = doc(this.db, 'productos', producto.id);
+      await deleteDoc(documentRef);
     }
   }
 

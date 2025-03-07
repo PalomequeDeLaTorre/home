@@ -17,13 +17,14 @@ export class ProductoComponent {
   producto = new Producto();
   mostrarErrores: boolean = false;
   actualizado: boolean = false;
+  enModoEdicion: boolean = false;
 
   //Constructor
   constructor(private productoService:ProductoService){
     this.getProductos();
   }
 
-  //Método que hace la petición al service para obtener los libros
+  //Método que hace la petición al service para obtener los productos
   async getProductos(): Promise<void> {
     try {
       this.productos = await firstValueFrom(this.productoService.getProductos()) || [];
@@ -33,29 +34,73 @@ export class ProductoComponent {
     }
   }
   
+  //Método para insertar un producto desde el formulario 
+  async insertarProducto() {
+    this.mostrarErrores = true; 
+
+    if (this.producto.id === "0") {
+      alert('El ID no puede ser 0. Por favor, ingrese un número mayor a 0.'); 
+      return;
+    }
+
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
+    const idExistente = this.productos.some((p: Producto) => p.id === this.producto.id);
   
-  //Método para insertar un libro desde el formulario 
-  insertarProducto(){
-    this.productoService.agregarProductos(this.producto);
-    this.getProductos();
-    this.producto = new Producto();
-    this.mostrarErrores = false; 
+    if (idExistente) {
+      alert('El ID ya existe. Por favor, ingrese un ID único.');
+      return;
+    }
+  
+    try {
+      await this.productoService.agregarProductos(this.producto);
+      await this.getProductos();
+      this.producto = new Producto();
+      this.mostrarErrores = false;
+      alert('Producto agregado correctamente.'); 
+    } catch (error) {
+      alert('Error al agregar el producto. Intente nuevamente.'); 
+    }
   }
 
-  //Método para seleccionar un libro de la tabla
-  selectProducto(productoSeleccionado:Producto){
-    this.producto = productoSeleccionado;
+  //Método para seleccionar un producto de la tabla
+  selectProducto(productoSeleccionado: Producto) {
+    this.producto = { ...productoSeleccionado, idOriginal: productoSeleccionado.id };
+    this.enModoEdicion = true; 
   }
 
-  //Método para modificar un libro
-  updateProducto() {
-    this.productoService.modificarProducto(this.producto);
-    this.productos =  new Producto();
-    this.getProductos();
-    this.actualizado = true; 
+  //Método para modificar un producto
+  async updateProducto() {
+    this.mostrarErrores = true;
+
+    if (!this.isFormValid()) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+  
+    const idExistente = this.productos.some((p: Producto) => p.id === this.producto.id && p.id !== this.producto.idOriginal);
+  
+    if (idExistente) {
+      alert('El ID ya existe en otro producto. Por favor, ingrese un ID único.');
+      return;
+    }
+  
+    try {
+      await this.productoService.modificarProducto(this.producto);
+      await this.getProductos();
+      this.producto = new Producto();
+      this.actualizado = true;
+      this.mostrarErrores = false;
+      alert('Producto modificado correctamente.');
+    } catch (error) {
+      alert('Error al modificar el producto. Intente nuevamente.');
+    }
   }
 
-  //Método para eliminar un libro
+  //Método para eliminar un producto
   deleteProducto(producto: Producto){
     this.productoService.eliminarProducto(producto);
     this.productos = new Producto();
