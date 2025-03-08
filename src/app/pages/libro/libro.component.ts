@@ -36,6 +36,12 @@ export class LibroComponent {
       alert('Por favor, complete todos los campos obligatorios.');
       return;
     }
+
+    if (!this.isFormValid() || this.libro.anyoPublicacion.toString().length !== 4) {
+      alert('El año de publicación debe tener exactamente 4 dígitos.');
+      return;
+    }
+
     this.libroService.agregarLibro(this.libro);
     this.getLibros();
     this.libro = new Libro();
@@ -56,6 +62,12 @@ export class LibroComponent {
       alert('Por favor, complete todos los campos obligatorios.');
       return;
     }
+
+    if (!this.isFormValid() || this.libro.anyoPublicacion.toString().length !== 4) {
+      alert('El año de publicación debe tener exactamente 4 dígitos.');
+      return;
+    }
+    
     this.libroService.modificarLibro(this.libro);
     this.libros =  new Libro();
     this.getLibros();

@@ -28,7 +28,7 @@
 
         <p>
             <label>Año de Publicación:</label>
-            <input type="number" class="form-control" [(ngModel)]="libro.anyoPublicacion" />
+            <input type="number" class="form-control" [(ngModel)]="libro.anyoPublicacion" name="anyoPublicacion" maxlength="4" required>
             @if(mostrarErrores && libro && !libro.anyoPublicacion){
                 <span style="color: red;">Ingrese un año válido (4 dígitos)</span>
             }

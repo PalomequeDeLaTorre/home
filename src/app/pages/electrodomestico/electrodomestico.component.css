@@ -35,6 +35,10 @@
     
 }
 
+.words{
+    font-weight: bold;
+}
+
 .form-container:hover {
     transform: translateY(-5px);
 }

@@ -48,6 +48,11 @@ export class ElectrodomesticoComponent {
       return;
     }
 
+    if (!/^\d+$/.test(this.electrodomestico.id)) {
+      alert('El ID solo puede contener números. Por favor, ingrese un ID válido.');
+      return;
+    }
+
     const idExistente = this.electrodomesticos.some((e: Electrodomestico) => e.id === this.electrodomestico.id);
 
     if (idExistente) {
@@ -81,10 +86,20 @@ export class ElectrodomesticoComponent {
       return;
     }
 
+    if (this.electrodomestico.id === "0") {
+      alert('El ID no puede ser 0. Por favor, ingrese un número mayor a 0.'); 
+      return;
+    }
+
+    if (!/^\d+$/.test(this.electrodomestico.id)) {
+      alert('El ID solo puede contener números. Por favor, ingrese un ID válido.');
+      return;
+    }
+
     const idExistente = this.electrodomesticos.some((p: Electrodomestico) => p.id === this.electrodomestico.id && p.id !== this.electrodomestico.idOriginal );
 
     if (idExistente) {
-      alert('El ID ya existe en otro producto. Por favor, ingrese un ID único.');
+      alert('El ID ya existe en otro electrodoméstico. Por favor, ingrese un ID único.');
       return;
     }
 

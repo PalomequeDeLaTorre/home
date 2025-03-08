@@ -48,6 +48,11 @@ export class ProductoComponent {
       return;
     }
 
+    if (!/^\d+$/.test(this.producto.id)) {
+      alert('El ID solo puede contener números. Por favor, ingrese un ID válido.');
+      return;
+    }
+
     const idExistente = this.productos.some((p: Producto) => p.id === this.producto.id);
   
     if (idExistente) {
@@ -80,7 +85,17 @@ export class ProductoComponent {
       alert('Por favor, complete todos los campos obligatorios.');
       return;
     }
-  
+
+    if (this.producto.id === "0") {
+      alert('El ID no puede ser 0. Por favor, ingrese un número mayor a 0.'); 
+      return;
+    }
+
+    if (!/^\d+$/.test(this.producto.id)) {
+      alert('El ID solo puede contener números. Por favor, ingrese un ID válido.');
+      return;
+    }
+
     const idExistente = this.productos.some((p: Producto) => p.id === this.producto.id && p.id !== this.producto.idOriginal);
   
     if (idExistente) {
